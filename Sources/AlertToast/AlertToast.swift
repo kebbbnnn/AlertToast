@@ -121,7 +121,7 @@ public struct AlertToast: View{
         case systemImage(_ name: String, _ color: Color)
         
         ///Image from Assets
-        case image(_ name: String, _ color: Color)
+        case image(_ name: String, _ color: Color, _ size: CGSize = .zero)
         
         ///Loading indicator (Circular)
         case loading
@@ -241,7 +241,7 @@ public struct AlertToast: View{
                     case .systemImage(let name, let color):
                         Image(systemName: name)
                             .foregroundColor(color)
-                    case .image(let name, let color):
+                    case .image(let name, let color, _):
                         Image(name)
                             .renderingMode(.template)
                             .foregroundColor(color)
@@ -287,7 +287,7 @@ public struct AlertToast: View{
                     Image(systemName: name)
                         .hudModifier()
                         .foregroundColor(color)
-                case .image(let name, let color):
+                case .image(let name, let color, _):
                     Image(name)
                         .hudModifier()
                         .foregroundColor(color)
@@ -349,12 +349,13 @@ public struct AlertToast: View{
                     .foregroundColor(color)
                     .padding(.bottom)
                 Spacer()
-            case .image(let name, let color):
+            case .image(let name, let color, let size):
                 Spacer()
                 Image(name)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .scaledToFit()
+                    .frame(width: size.width, height: size.height)
                     .foregroundColor(color)
                     .padding(.bottom)
                 Spacer()
